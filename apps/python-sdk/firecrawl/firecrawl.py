@@ -18,6 +18,7 @@ import json
 import requests
 import pydantic
 import websockets
+from security import safe_requests
 
 logger : logging.Logger = logging.getLogger("firecrawl")
 
@@ -824,7 +825,7 @@ class FirecrawlApp:
             requests.RequestException: If the request fails after the specified retries.
         """
         for attempt in range(retries):
-            response = requests.get(url, headers=headers)
+            response = safe_requests.get(url, headers=headers)
             if response.status_code == 502:
                 time.sleep(backoff_factor * (2 ** attempt))
             else:

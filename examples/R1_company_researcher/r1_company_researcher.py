@@ -5,6 +5,7 @@ import requests
 from dotenv import load_dotenv
 from openai import OpenAI
 from serpapi.google_search import GoogleSearch
+from security import safe_requests
 
 # ANSI color codes
 class Colors:
@@ -152,7 +153,7 @@ def poll_firecrawl_result(extraction_id, api_key, interval=5, max_attempts=36):
     for attempt in range(1, max_attempts + 1):
         try:
             # print(f"{Colors.YELLOW}Polling for extraction result (Attempt {attempt}/{max_attempts})...{Colors.RESET}")
-            response = requests.get(url, headers=headers, timeout=30)
+            response = safe_requests.get(url, headers=headers, timeout=30)
             response.raise_for_status()
             data = response.json()
 
