@@ -135,7 +135,7 @@ class FirecrawlApp:
             f'{self.api_url}{endpoint}',
             headers=headers,
             json=scrape_params,
-        )
+        timeout=60)
         if response.status_code == 200:
             try:
                 response = response.json()
@@ -173,8 +173,8 @@ class FirecrawlApp:
         response = requests.post(
             f"{self.api_url}/v1/search",
             headers={"Authorization": f"Bearer {self.api_key}"},
-            json=search_params.dict(exclude_none=True)
-        )
+            json=search_params.dict(exclude_none=True), 
+        timeout=60)
 
         if response.status_code != 200:
             raise Exception(f"Request failed with status code {response.status_code}")
@@ -408,7 +408,7 @@ class FirecrawlApp:
             f'{self.api_url}{endpoint}',
             headers=headers,
             json=json_data,
-        )
+        timeout=60)
         if response.status_code == 200:
             try:
                 response = response.json()
@@ -797,7 +797,7 @@ class FirecrawlApp:
             requests.RequestException: If the request fails after the specified retries.
         """
         for attempt in range(retries):
-            response = requests.post(url, headers=headers, json=data)
+            response = requests.post(url, headers=headers, json=data, timeout=60)
             if response.status_code == 502:
                 time.sleep(backoff_factor * (2 ** attempt))
             else:
@@ -824,7 +824,7 @@ class FirecrawlApp:
             requests.RequestException: If the request fails after the specified retries.
         """
         for attempt in range(retries):
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers, timeout=60)
             if response.status_code == 502:
                 time.sleep(backoff_factor * (2 ** attempt))
             else:
@@ -851,7 +851,7 @@ class FirecrawlApp:
             requests.RequestException: If the request fails after the specified retries.
         """
         for attempt in range(retries):
-            response = requests.delete(url, headers=headers)
+            response = requests.delete(url, headers=headers, timeout=60)
             if response.status_code == 502:
                 time.sleep(backoff_factor * (2 ** attempt))
             else:

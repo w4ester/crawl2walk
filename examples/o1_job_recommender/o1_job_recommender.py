@@ -101,8 +101,8 @@ try:
         json={
             "url": jobs_page_url,
             "formats": ["markdown"]
-        }
-    )
+        }, 
+    timeout=60)
     
     if response.status_code == 200:
         result = response.json()
@@ -210,8 +210,8 @@ for index, link in enumerate(apply_links):
                         "required": ["job_title", "sub_division_of_organization", "key_skills", "compensation", "location", "apply_link"]
                     }
                 }
-            }
-        )
+            }, 
+        timeout=60)
         
         if response.status_code == 200:
             result = response.json()

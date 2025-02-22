@@ -22,7 +22,7 @@ def get_page_content():
     """
     Send a GET request to the Hacker News homepage and return the HTML content.
     """
-    response = requests.get(BASE_URL)
+    response = requests.get(BASE_URL, timeout=60)
     return response.text
 
 
