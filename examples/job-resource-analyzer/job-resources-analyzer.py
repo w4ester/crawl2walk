@@ -5,6 +5,7 @@ import requests
 from dotenv import load_dotenv
 from openai import OpenAI
 from serpapi.google_search import GoogleSearch
+from security import safe_requests
 
 class Colors:
     CYAN = '\033[96m'
@@ -67,7 +68,7 @@ def poll_extraction_result(extraction_id, api_key, interval=5, max_attempts=12):
 
     for _ in range(max_attempts):
         try:
-            response = requests.get(url, headers=headers, timeout=30)
+            response = safe_requests.get(url, headers=headers, timeout=30)
             data = response.json()
             if data.get('success') and data.get('data'):
                 return data['data']

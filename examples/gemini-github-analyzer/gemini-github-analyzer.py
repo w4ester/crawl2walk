@@ -5,6 +5,7 @@ import requests
 from dotenv import load_dotenv
 from google import genai
 from datetime import datetime
+from security import safe_requests
 
 # ANSI color codes
 class Colors:
@@ -67,7 +68,7 @@ def poll_extraction_result(extraction_id, api_key, interval=2, max_attempts=15):
 
     for attempt in range(max_attempts):
         try:
-            response = requests.get(url, headers=headers, timeout=10)
+            response = safe_requests.get(url, headers=headers, timeout=10)
             data = response.json()
 
             if data.get('success') and data.get('data'):

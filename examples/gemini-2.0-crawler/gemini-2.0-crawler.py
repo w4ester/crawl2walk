@@ -6,6 +6,8 @@ import requests
 from requests.exceptions import RequestException
 from dotenv import load_dotenv
 import google.genai as genai
+from security import safe_requests
+
 # Load environment variables
 load_dotenv()
 
@@ -43,7 +45,7 @@ def gemini_extract_pdf_content(pdf_url, objective):
     Returns a string with the extracted text only.
     """
     try:
-        pdf_data = requests.get(pdf_url, timeout=15).content
+        pdf_data = safe_requests.get(pdf_url, timeout=15).content
         size_mb = pdf_size_in_mb(pdf_data)
         if size_mb > 15:
             print(
@@ -77,7 +79,7 @@ def gemini_extract_image_data(image_url):
     """
     try:
         print(f"Gemini IMAGE extraction from: {image_url}")
-        image_data = requests.get(image_url, timeout=15).content
+        image_data = safe_requests.get(image_url, timeout=15).content
         # 1) Summarize
         resp_summary = client.models.generate_content([
             "Describe the contents of this image in a short paragraph.",

@@ -5,6 +5,7 @@ import requests
 from dotenv import load_dotenv
 from serpapi.google_search import GoogleSearch
 from google import genai
+from security import safe_requests
 
 # ANSI color codes
 class Colors:
@@ -158,7 +159,7 @@ def poll_firecrawl_result(extraction_id, api_key, interval=10, max_attempts=60):
     
     for attempt in range(1, max_attempts + 1):
         try:
-            response = requests.get(url, headers=headers, timeout=30)
+            response = safe_requests.get(url, headers=headers, timeout=30)
             response.raise_for_status()
             data = response.json()
 
