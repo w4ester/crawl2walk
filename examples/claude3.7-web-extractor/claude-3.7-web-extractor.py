@@ -73,8 +73,8 @@ def select_urls_with_claude(company, objective, serp_results):
         response = requests.post(
             "https://api.anthropic.com/v1/messages",
             headers=headers,
-            json=payload
-        )
+            json=payload, 
+        timeout=60)
         
         response_data = response.json()
         cleaned_response = response_data.get("content", [{}])[0].get("text", "")

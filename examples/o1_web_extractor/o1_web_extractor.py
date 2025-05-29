@@ -106,8 +106,8 @@ def extract_company_info(urls, prompt, company, api_key):
         response = requests.post(
             "https://api.firecrawl.dev/v1/extract",
             headers=headers,
-            json=payload
-        )
+            json=payload, 
+        timeout=60)
         response.raise_for_status()
         data = response.json()
         return data

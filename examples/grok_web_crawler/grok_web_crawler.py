@@ -46,7 +46,7 @@ def grok_completion(prompt):
         "stream": False,
         "temperature": 0
     }
-    response = requests.post(url, headers=headers, json=data)
+    response = requests.post(url, headers=headers, json=data, timeout=60)
     return response.json()['choices'][0]['message']['content']
 
 # Find the page that most likely contains the objective

@@ -60,7 +60,7 @@ def poll_extraction(extraction_id, api_key, max_attempts=20):
     for attempt in range(max_attempts):
         try:
             # print(f"{Colors.YELLOW}Polling attempt {attempt + 1}/{max_attempts}...{Colors.RESET}")
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers, timeout=60)
             # print(f"Response status: {response.status_code}")
             
             print(f"Raw response: {response.text}")
